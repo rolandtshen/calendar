@@ -48,6 +48,11 @@ code {
   padding-top: 10px;
 }
 
+.back-to-login {
+  padding-top: 10px;
+  padding-left:280px;
+}
+
 .home {
   margin: 0 auto;
 }
@@ -76,12 +81,12 @@ code {
   margin-top: 40px;
 }
 
-.btn-group {
-
+.btn {
+  padding-left: 50px;
 }
 
 .btn-group-2 {
-  padding-left: 10px;
+  padding-left: 50px;
 }
 
 .event {
