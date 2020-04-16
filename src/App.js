@@ -14,7 +14,7 @@ export default function App() {
   return (
     <Router>
         <Switch>
-          <Route path="">
+          <Route path="/">
             <Login />
           </Route>
           <Route path="/home">
