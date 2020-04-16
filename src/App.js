@@ -1,5 +1,6 @@
 import React from "react";
 import Home from './components/Home'
+import Login from './components/Login'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
@@ -13,7 +14,10 @@ export default function App() {
   return (
     <Router>
         <Switch>
-          <Route path="/">
+          <Route path="">
+            <Login />
+          </Route>
+          <Route path="/home">
             <Home />
           </Route>
         </Switch>

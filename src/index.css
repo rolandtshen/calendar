@@ -17,6 +17,37 @@ code {
     monospace;
 }
 
+.login {
+  margin: 100px;
+}
+
+.login-header {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 75px;
+  font-weight: 600;
+}
+
+.login-info {
+  width: 350px;
+  text-align: left;
+}
+
+.login-input {
+  text-align: center;
+}
+
+.login-input-label {
+  padding-top: 10px;
+  padding-left: 280px;
+  text-align: left;
+}
+
+.login-buttons {
+  text-align: center;
+  padding-top: 10px;
+}
+
 .home {
   margin: 0 auto;
 }
@@ -43,6 +74,14 @@ code {
 
 .eventList {
   margin-top: 40px;
+}
+
+.btn-group {
+
+}
+
+.btn-group-2 {
+  padding-left: 10px;
 }
 
 .event {
