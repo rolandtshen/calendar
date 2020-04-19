@@ -21,7 +21,7 @@ export default function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/home">
+          <Route path="/">
             <Home />
           </Route>
         </Switch>
