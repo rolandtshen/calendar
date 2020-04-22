@@ -20,41 +20,41 @@ class LoginForm extends Component {
     }
 
     // const forgotPasswordEventHandler = {
-        // route to new page for forgot password
-        // this page needs title, input for email, and submit button
-        // submit button will call mailgun API to the guest's email
-        // direct guest to check their email for further instructions
-        // button for back to login page
-        // https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page/50645395
-        // import { useHistory } from 'react-router-dom';
-        // const App = () => {
-        //    const history = useHistory()
-        //    <i className="icon list arrow left"
-        //       onClick={() => {
-        //         history.goBack()
-        //    }}></i>
-        // }
+    // route to new page for forgot password
+    // this page needs title, input for email, and submit button
+    // submit button will call mailgun API to the guest's email
+    // direct guest to check their email for further instructions
+    // button for back to login page
+    // https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page/50645395
+    // import { useHistory } from 'react-router-dom';
+    // const App = () => {
+    //    const history = useHistory()
+    //    <i className="icon list arrow left"
+    //       onClick={() => {
+    //         history.goBack()
+    //    }}></i>
+    // }
     // }
     handleChange = (e) => {
         this.setState({
-          [e.target.name]: e.target.value
+            [e.target.name]: e.target.value
         });
     }
     onSubmit = event => {
         const { email, password } = this.state;
         this.props.firebase
-          .doSignInWithEmailAndPassword(email, password)
-          .then(() => {
-            this.setState({ ...INITIAL_STATE });
-            alert("logged in");
-          })
-          .catch(error => {
-              alert(error);
-            this.setState({ error });
-          });
+            .doSignInWithEmailAndPassword(email, password)
+            .then(() => {
+                this.setState({ ...INITIAL_STATE });
+                alert("logged in");
+            })
+            .catch(error => {
+                alert(error);
+                this.setState({ error });
+            });
         event.preventDefault();
-      };
-      render() {
+    };
+    render() {
         return (
             <Container>
                 <div className="login">
@@ -92,7 +92,7 @@ class LoginForm extends Component {
                 </div>
             </Container>
         );
-      }
+    }
 }
 
 export default class Login extends Component {
@@ -105,19 +105,19 @@ export default class Login extends Component {
     }
 
     // const forgotPasswordEventHandler = {
-        // route to new page for forgot password
-        // this page needs title, input for email, and submit button
-        // submit button will call mailgun API to the guest's email
-        // direct guest to check their email for further instructions
-        // button for back to login page
-        // https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page/50645395
-        // import { useHistory } from 'react-router-dom';
-        // const App = () => {
-        //    const history = useHistory()
-        //    <i className="icon list arrow left"
-        //       onClick={() => {
-        //         history.goBack()
-        //    }}></i>
-        // }
+    // route to new page for forgot password
+    // this page needs title, input for email, and submit button
+    // submit button will call mailgun API to the guest's email
+    // direct guest to check their email for further instructions
+    // button for back to login page
+    // https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page/50645395
+    // import { useHistory } from 'react-router-dom';
+    // const App = () => {
+    //    const history = useHistory()
+    //    <i className="icon list arrow left"
+    //       onClick={() => {
+    //         history.goBack()
+    //    }}></i>
+    // }
     // }
 }

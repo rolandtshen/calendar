@@ -1,7 +1,8 @@
 import React from "react";
-import Home from './components/Home'
-import Login from './components/Login'
-import Register from './components/Register'
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
+import CalendarCreator from './components/CalendarCreator';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
@@ -23,6 +24,9 @@ export default function App() {
           </Route>
           <Route path="/">
             <Home />
+          </Route>
+          <Route path="/calendarCreator">
+            <CalendarCreator />
           </Route>
         </Switch>
     </Router>
