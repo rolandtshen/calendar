@@ -19,14 +19,14 @@ export default function App() {
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/calendarCreator">
+            <CalendarCreator />
+          </Route>
           <Route path="/register">
             <Register />
           </Route>
           <Route path="/">
             <Home />
-          </Route>
-          <Route path="/calendarCreator">
-            <CalendarCreator />
           </Route>
         </Switch>
     </Router>
