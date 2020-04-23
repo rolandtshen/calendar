@@ -184,6 +184,25 @@ code {
   background: #B7B7B7;
   transform: rotate(90deg);
 }
+
+nav {
+  margin-bottom: 40px;
+  background-color: #4845F0;
+}
+
+.emailListWrapper {
+  margin-bottom: 8px;
+}
+
+.emailList {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.deleteEmail {
+  display: inline-block;
+}
+
 /* Calendar view
 
 position: relative;
