@@ -3,6 +3,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import CalendarCreator from './components/CalendarCreator';
+import NewEventWrapper from './components/NewEvent'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
@@ -16,16 +17,19 @@ export default function App() {
   return (
     <Router>
         <Switch>
-          <Route path="/login">
+          <Route exact path="/login">
             <Login />
           </Route>
-          <Route path="/calendarCreator">
+          <Route exact path="/calendarCreator">
             <CalendarCreator />
           </Route>
-          <Route path="/register">
+          <Route exact path="/register">
             <Register />
           </Route>
-          <Route path="/">
+          <Route exact path="/newEvent">
+            <NewEventWrapper />
+          </Route>
+          <Route exact path="/">
             <Home />
           </Route>
         </Switch>

@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 
 class Firebase {
     constructor() {
@@ -15,6 +16,7 @@ class Firebase {
         };
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
+        this.database = app.database();
     }
     doCreateUserWithEmailAndPassword = (email, password) =>
         this.auth.createUserWithEmailAndPassword(email, password);
@@ -23,6 +25,11 @@ class Firebase {
         this.auth.signInWithEmailAndPassword(email, password);
 
     doSignOut = () => this.auth.signOut();
+
+    addEvent = (event) => {
+        const eventsRef = this.database.ref('events');
+        eventsRef.push(event);
+    }
 
 }
 
