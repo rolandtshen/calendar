@@ -19,22 +19,7 @@ class LoginForm extends Component {
         }
     }
 
-    // const forgotPasswordEventHandler = {
-    // route to new page for forgot password
-    // this page needs title, input for email, and submit button
-    // submit button will call mailgun API to the guest's email
-    // direct guest to check their email for further instructions
-    // button for back to login page
-    // https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page/50645395
-    // import { useHistory } from 'react-router-dom';
-    // const App = () => {
-    //    const history = useHistory()
-    //    <i className="icon list arrow left"
-    //       onClick={() => {
-    //         history.goBack()
-    //    }}></i>
-    // }
-    // }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -78,12 +63,10 @@ class LoginForm extends Component {
                     </div>
 
                     <div className="login-buttons">
-                        <ButtonGroup class="btn-toolbar" size="sm" vertical="true">
-                            <Button onClick={event =>  window.location.href='/register'} variant="primary">Register</Button>{' '}
-                            <Button variant="secondary">Forgot Password?</Button>{' '}
-                        </ButtonGroup>
+
 
                         <span className="btn-group-2">
+                            <Button onClick={event =>  window.location.href='/register'} size="lg" variant="primary">Register</Button>{' '}
                             <Button onClick={event =>  window.location.href='/home'} size="lg" variant="primary">Guest</Button>{' '}
                             <Button onClick={this.onSubmit}size="lg" variant="primary">Login</Button>{' '}
                         </span>
