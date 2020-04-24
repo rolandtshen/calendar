@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Container} from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { FirebaseContext } from './Firebase';
+
 
 
 const INITIAL_STATE = {
@@ -37,6 +37,8 @@ class RegisterForm extends Component {
                 console.log("registered");
                 console.log(authUser);
                 alert("registered");
+                window.location.href='/google-sign-in';
+
             })
             .catch(error => {
                 alert(error);
@@ -78,7 +80,7 @@ class RegisterForm extends Component {
 
                     <div className="login-buttons">
                         <Button onClick={this.handleSubmit}size="lg" variant="primary">Sign up!</Button>{' '}
-                        <br/>
+
                     </div>
                     <div className="back-to-login">
                         <Button onClick={event =>  window.location.href='/login'}size="sm" variant="secondary">&lt; Back to login</Button>{' '}

@@ -5,13 +5,14 @@ import Register from './components/Register';
 import CalendarCreator from './components/CalendarCreator';
 import NewEventWrapper from './components/NewEvent'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Google from "./components/Google";
 
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
+
 
 export default function App() {
   return (
@@ -31,6 +32,9 @@ export default function App() {
           </Route>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/google-sign-in">
+            <Google />
           </Route>
         </Switch>
     </Router>

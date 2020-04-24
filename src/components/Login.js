@@ -31,7 +31,8 @@ class LoginForm extends Component {
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
                 this.setState({ ...INITIAL_STATE });
-                alert("logged in");
+                //alert("logged in");
+                window.location.href='/';
             })
             .catch(error => {
                 alert(error);
