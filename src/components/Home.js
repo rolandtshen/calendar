@@ -11,7 +11,7 @@ function Home() {
                 <div className="home">
                     <div className="home-topbar">
                         <h1>My Events</h1>
-                        <button className="createEvent">Create Event</button>
+                        <a className="createEvent" href="/newEvent">Create Event</a>
                     </div>
                     <div className="eventList">
                         <EventCell />

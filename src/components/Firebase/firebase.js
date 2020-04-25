@@ -1,8 +1,13 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import Cookies from 'js-cookie';
 
 class Firebase {
+    state = {
+        authenticatedUser: Cookies.getJSON('authUser') || null
+    }
+    
     constructor() {
         const firebaseConfig = {
             apiKey: "AIzaSyB5MgCpxDn7CcpULPhvRhl40tyzmOjup-8",
@@ -17,20 +22,33 @@ class Firebase {
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
         this.database = app.database();
+        this.authenticatedUser = this.state.authenticatedUser;
     }
-    doCreateUserWithEmailAndPassword = (email, password) =>
+    doCreateUserWithEmailAndPassword = (email, password) => {
         this.auth.createUserWithEmailAndPassword(email, password);
+    }
 
     doSignInWithEmailAndPassword = (email, password) =>
-        this.auth.signInWithEmailAndPassword(email, password);
+        this.auth.signInWithEmailAndPassword(email, password).then(user => {
+            return this.auth.currentUser.getIdToken().then(idToken => {
+                console.log(idToken);
+                const cookieOptions = {
+                    expires: 30
+                };
+                Cookies.set('authUser', idToken, cookieOptions);
+            })
+        });
 
-    doSignOut = () => this.auth.signOut();
+    doSignOut = () => {
+        console.log("Signing out");
+        this.auth.signOut()
+        Cookies.remove('authUser');
+    };
 
     addEvent = (event) => {
         const eventsRef = this.database.ref('events');
         eventsRef.push(event);
     }
-
 }
 
 export default Firebase;
