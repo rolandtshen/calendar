@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap'
 import EventCell from './EventCell'
+import InviteMembers from './InviteMembers'
 
 function Home() {
     return (
@@ -19,6 +20,9 @@ function Home() {
                     <EventCell />
                 </div>
             </div>
+            <div> 
+                <InviteMembers /> 
+            </div> 
         </Container>
     );
 }
