@@ -87,7 +87,6 @@ class NewEvent extends Component {
             emails: this.state.emails
         }
         this.props.firebase.addEvent(event);
-        SendEmails(this.state.emails); 
     }
 
     render() {

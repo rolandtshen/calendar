@@ -6,6 +6,7 @@ import CalendarCreator from './components/CalendarCreator';
 import NewEventWrapper from './components/NewEvent'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Google from "./components/Google";
+import CalendarView from './components/CalendarView'; 
 
 import {
   BrowserRouter as Router,
@@ -35,6 +36,9 @@ export default function App() {
           </Route>
           <Route exact path="/google-sign-in">
             <Google />
+          </Route>
+          <Route exact path="/calendar-view">
+            <CalendarView />
           </Route>
         </Switch>
     </Router>
