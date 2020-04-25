@@ -3,7 +3,7 @@ import {Container} from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { FirebaseContext } from './Firebase';
-
+import NavBar from './NavBar';
 
 const INITIAL_STATE = {
     email: '',
@@ -42,39 +42,42 @@ class LoginForm extends Component {
     };
     render() {
         return (
-            <Container>
-                <div className="login">
-                    <div className="login-header">
-                        GCal Sync
+            <React.Fragment>
+                <NavBar></NavBar>
+                <Container>
+                    <div className="login">
+                        <div className="login-header">
+                            GCal Sync
+                        </div>
+
+                        <div className="login-input-label">
+                            <label htmlFor="username">Email &nbsp;</label>
+                        </div>
+
+                        <div className="login-input">
+                            <input className="login-info" name="email" value={this.state.email} onChange={this.handleChange} required={true} id="username"/>
+                        </div>
+
+                        <div className="login-input-label">
+                            <label htmlFor="password">Password &nbsp;</label>
+                        </div>
+                        <div className="login-input">
+                            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="login-info" required={true} id="password"/>
+                        </div>
+
+                        <div className="login-buttons">
+
+
+                            <span className="btn-group-2">
+                                <Button onClick={event =>  window.location.href='/register'} size="lg" variant="primary">Register</Button>{' '}
+                                <Button onClick={event =>  window.location.href='/home'} size="lg" variant="primary">Guest</Button>{' '}
+                                <Button onClick={this.onSubmit}size="lg" variant="primary">Login</Button>{' '}
+                            </span>
+
+                        </div>
                     </div>
-
-                    <div className="login-input-label">
-                        <label htmlFor="username">Email &nbsp;</label>
-                    </div>
-
-                    <div className="login-input">
-                        <input className="login-info" name="email" value={this.state.email} onChange={this.handleChange} required={true} id="username"/>
-                    </div>
-
-                    <div className="login-input-label">
-                        <label htmlFor="password">Password &nbsp;</label>
-                    </div>
-                    <div className="login-input">
-                        <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="login-info" required={true} id="password"/>
-                    </div>
-
-                    <div className="login-buttons">
-
-
-                        <span className="btn-group-2">
-                            <Button onClick={event =>  window.location.href='/register'} size="lg" variant="primary">Register</Button>{' '}
-                            <Button onClick={event =>  window.location.href='/home'} size="lg" variant="primary">Guest</Button>{' '}
-                            <Button onClick={this.onSubmit}size="lg" variant="primary">Login</Button>{' '}
-                        </span>
-
-                    </div>
-                </div>
-            </Container>
+                </Container>
+            </React.Fragment>
         );
     }
 }
