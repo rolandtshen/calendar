@@ -86,7 +86,7 @@ code {
 }
 
 .btn-group-2 {
-  padding-left: 50px;
+
 }
 
 .event {
@@ -127,3 +127,79 @@ code {
   border: none;
 
 }
+
+.logout-button {
+  position: absolute;
+  button-color: white;
+  border: none;
+  padding: 0;
+
+  width: 40px;
+  height: 16px;
+  left: 1312px;
+  top: 75px;
+
+  font-family: OpenSans;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: right;
+
+  color: #a3a3a3;
+}
+
+.gCal-logo {
+
+  text-align: left;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 14px;
+
+  position: absolute;
+  height: 56px;
+  left: 88px;
+  top: 60px;
+
+
+}
+
+.line-Horizontal {
+  position: absolute;
+  width: 1440px;
+  height: 0.5px;
+  left: 0px;
+  top: 182px;
+
+  background: #B7B7B7;
+
+}
+
+.line-Vertical {
+  position: absolute;
+  width: 842px;
+  height: 0.5px;
+  left: -100px;
+  bottom: 148px;
+
+
+  background: #B7B7B7;
+  transform: rotate(90deg);
+}
+
+nav {
+  margin-bottom: 40px;
+  background-color: #4845F0;
+}
+
+.emailListWrapper {
+  margin-bottom: 8px;
+}
+
+.emailList {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.deleteEmail {
+  display: inline-block;
+}
+
