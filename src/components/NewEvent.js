@@ -3,7 +3,8 @@ import {Container} from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { FirebaseContext } from './Firebase';
-import NavBar from './NavBar'
+import NavBar from './NavBar'; 
+import SendEmails from './SendEmails'; 
 
 const INITIAL_STATE = {
     username: '',
@@ -86,6 +87,7 @@ class NewEvent extends Component {
             emails: this.state.emails
         }
         this.props.firebase.addEvent(event);
+        SendEmails(this.state.emails); 
     }
 
     render() {

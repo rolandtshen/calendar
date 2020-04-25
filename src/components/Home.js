@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap'
 import EventCell from './EventCell'
-import InviteMembers from './InviteMembers'
 import NavBar from './NavBar';
 
 function Home() {
     return (
         <React.Fragment>
             <NavBar />
+            <Container>
             <Container>
                 <div className="home">
                     <div className="home-topbar">
@@ -31,10 +31,6 @@ function Home() {
                     <EventCell />
                     <EventCell />
                 </div>
-            </div>
-            <div> 
-                <InviteMembers /> 
-            </div> 
         </Container>
             </Container>
         </React.Fragment>
