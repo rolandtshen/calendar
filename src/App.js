@@ -6,6 +6,7 @@ import CalendarCreator from './components/CalendarCreator';
 import NewEventWrapper from './components/NewEvent'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Google from "./components/Google";
+import { withFirebase } from './components/Firebase';
 
 import {
   BrowserRouter as Router,
@@ -13,6 +14,7 @@ import {
   Route
 } from "react-router-dom";
 
+const HomeWithFirebase = withFirebase(Home);
 
 export default function App() {
   return (
@@ -31,7 +33,7 @@ export default function App() {
             <NewEventWrapper />
           </Route>
           <Route exact path="/">
-            <Home />
+            <HomeWithFirebase />
           </Route>
           <Route exact path="/google-sign-in">
             <Google />

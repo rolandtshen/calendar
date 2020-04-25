@@ -49,6 +49,10 @@ class Firebase {
         const eventsRef = this.database.ref('events');
         eventsRef.push(event);
     }
+
+    getCurrentUser = () => {
+        return this.auth.currentUser;
+    }
 }
 
 export default Firebase;

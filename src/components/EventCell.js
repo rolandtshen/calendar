@@ -1,12 +1,16 @@
 import React from 'react';
+const moment = require('moment');
 
-function EventCell() {
+function EventCell(props) {
+    console.log(props);
+    var event = props.event;
+    var createdAt = moment(event.createdAt).format('MM/DD/YYYY');
     return (
         <div className="event">
-            <h2>Event title</h2>
-            <p className="createdAt">Created at: date</p>
+            <h2>{event.eventName}</h2>
+            <p className="createdAt">Created at: {createdAt}</p>
             <div className="event-bottom">
-                <p>6 people</p>
+                <p>{event.emails ? event.emails.length : 0} participant(s)</p>
                 <button>
                     Edit
                 </button>

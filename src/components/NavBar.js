@@ -33,8 +33,6 @@ function NavLinks(props) {
 
 class NavBar extends Component {
     render() {
-        console.log("context");
-        console.log(this.props.firebase);
         return (
             <React.Fragment>
                 <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar">

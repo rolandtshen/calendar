@@ -42,14 +42,19 @@ class NewEvent extends Component {
             location: "",
             description: "",
             emails: [],
-            currentEmail: ""
+            currentEmail: "",
+            eventLength: "",
+            startDate: "",
+            endDate: ""
         }
     }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        });
+        }, () => {
+            console.log(this.state.startDate);
+        })
     }
 
     handleDeleteEmail = (idx) => {
@@ -60,7 +65,6 @@ class NewEvent extends Component {
                 emails: array
             });
         }
-        console.log(this.state.emails);
     }
 
     addEmail = (e) => {
@@ -83,7 +87,12 @@ class NewEvent extends Component {
             eventName: this.state.eventName,
             location: this.state.location,
             description: this.state.description,
-            emails: this.state.emails
+            emails: this.state.emails,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate,
+            eventLength: this.state.eventLength,
+            createdBy: this.props.firebase.getCurrentUser().uid,
+            createdAt: new Date().toString()
         }
         this.props.firebase.addEvent(event);
     }
@@ -95,29 +104,58 @@ class NewEvent extends Component {
                 <Container>
                     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
                     <div className="newEvent">
-                        <h1 className="text-black text-4xl font-semibold">Create New Event</h1>
+                        <h1 className="text-black text-4xl font-semibold mb-6">Create New Event</h1>
+                        <h3 className="text-black text-xl mb-6 font-medium">Fill out event information</h3>
                         <form className="mt-8 mb-8">
-                            <h3 className="text-black text-xl mb-6 font-medium">Fill out event information</h3>
-                            <div className="mb-4 w-1/3">
-                                <label className="block text-gray-700">Event Name</label>
-                                <input name="eventName" value={this.state.eventName} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                            <div className="w-1/3 inline-block mr-8">
+                                <div className="mb-4 w-full">
+                                    <label className="block text-gray-700">Event Name</label>
+                                    <input name="eventName" value={this.state.eventName} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                                </div>
+                                <div className="mb-4 w-full">
+                                    <label className="block text-gray-700">Location</label>
+                                    <input name="location" value={this.state.location} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. 3584 S. Figueroa St."></input>
+                                </div>
+                                <div className="mb-4 w-full">
+                                    <label className="block text-gray-700">Description</label>
+                                    <input name="description" value={this.state.description} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. A picnic to start the year and welcome new employees"></input>
+                                </div>
+                                <div className="w-full">
+                                    <h3 className="text-black text-xl mb-6 font-medium">Invite people to your event</h3>
+                                    <EmailList emails={this.state.emails} handleDelete={this.handleDeleteEmail}/>
+                                    <input className="mt-4 block border-gray-500 border rounded p-2 bg-gray-200 inline-block" type="text" name="currentEmail" onChange={this.handleChange} value={this.state.currentEmail} placeholder="Add email"></input>
+                                    <button className="inline-block ml-4" onClick={this.addEmail}>+</button>
+                                </div>
                             </div>
-                            <div className="mb-4 w-1/3">
-                                <label className="block text-gray-700">Location</label>
-                                <input name="location" value={this.state.location} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. 3584 S. Figueroa St."></input>
-                            </div>
-                            <div className="mb-4 w-1/3">
-                                <label className="block text-gray-700">Description</label>
-                                <input name="description" value={this.state.description} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. A picnic to start the year and welcome new employees"></input>
-                            </div>
-                            <div className="w-1/3">
-                                <h3 className="text-black text-xl mb-6 font-medium">Invite people to your event</h3>
-                                <EmailList emails={this.state.emails} handleDelete={this.handleDeleteEmail}/>
-                                <input className="mt-4 block border-gray-500 border rounded p-2 bg-gray-200 inline-block" type="text" name="currentEmail" onChange={this.handleChange} value={this.state.currentEmail} placeholder="Add email"></input>
-                                <button className="inline-block ml-4" onClick={this.addEmail}>+</button>
+                            <div className="w-1/3 inline-block align-top">
+                                <div className="mb-4 w-full">
+                                    <label className="block text-gray-700">Start Date</label>
+                                    <input name="startDate" value={this.state.startDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="date" placeholder="Eg. Picnic"></input>
+                                </div>
+                                <div className="mb-4 w-full">
+                                    <label className="block text-gray-700">End Date</label>
+                                    <input name="endDate" value={this.state.endDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="date" placeholder="Eg. 3584 S. Figueroa St."></input>
+                                </div>
+                                <div className="mb-4 w-full">
+                                    <label className="block text-gray-700">Event Length</label>
+                                    <select name="eventLength" value={this.state.eventLength} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200">
+                                        <option value="15mins">15 mins</option>
+                                        <option value="30mins">30 mins</option>
+                                        <option value="45mins">45 mins</option>
+                                        <option value="1hr">1 hr</option>
+                                        <option value="1hr15mins">1 hr 15 mins</option>
+                                        <option value="1hr30mins">1 hr 30 mins</option>
+                                        <option value="1hr45mins">1 hr 45 mins</option>
+                                        <option value="2hrs">2 hrs</option>
+                                        <option value="2hr15mins">2 hr 15 min</option>
+                                        <option value="2hr30mins">2 hr 30 mins</option>
+                                        <option value="2hr45mins">2 hr 45 mins</option>
+                                        <option value="3hrs">3 hrs</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
-                        <button onClick={this.handleSubmit} type="submit" class="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Create Event</button>
+                        <button onClick={this.handleSubmit} type="submit" className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Create Event</button>
                     </div>
                 </Container>
             </React.Fragment>
