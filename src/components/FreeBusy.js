@@ -1,6 +1,7 @@
 import React from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import { FirebaseContext } from './Firebase';
+import CalendarView from './CalendarView';
 
 export default class FreeBusy extends React.Component {
     constructor(props) {
@@ -88,8 +89,7 @@ export default class FreeBusy extends React.Component {
             <button onClick={this.addCalendar}>
                 Add Calendar
             </button>
-            <br/>
-            <div> hii </div>
+            <CalendarView eventsList={this.state.eventsList}/> 
           </div> 
         );
     }

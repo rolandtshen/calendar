@@ -6,17 +6,27 @@ import "./react-big-calendar.css";
 const localizer = momentLocalizer(moment);
 
 class CalendarView extends Component {
-  state = {
-    events: [
-      {
-        start: moment().toDate(),
-        end: moment()
-          .add(1, "days")
-          .toDate(),
-        title: "Some title"
-      }
-    ]
-  };
+
+  constructor(props) {
+    super(props); 
+    this.state = {
+      events: [
+        {
+          start: moment().toDate(),
+          end: moment().add(1, "hour").toDate(),
+          title: "Some title"
+        }
+      ]
+    };
+  }
+
+  convertTimeFormat() {
+    
+  }
+
+  componentDidMount() {
+   // this.props.eventsList.map
+  }
 
   render() {
     return (
