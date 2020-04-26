@@ -2,6 +2,7 @@ import React from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import { FirebaseContext } from './Firebase';
 import CalendarView from './CalendarView';
+import moment from "moment"; 
 
 export default class FreeBusy extends React.Component {
     constructor(props) {
@@ -10,21 +11,29 @@ export default class FreeBusy extends React.Component {
         this.getCalendars = this.getCalendars.bind(this);
         this.addCalendar = this.addCalendar.bind(this); 
         this.getEvents = this.getEvents.bind(this); 
-        this.saveToFirebase = this.saveToFirebase.bind(this); 
+        this.saveBusyEvents = this.saveBusyEvents.bind(this); 
         this.state = {
           calendarList : [],
           eventsList: [], 
-          eventId: ""
+          eventId: this.props.eventId, 
+          min: "", 
+          max: ""
         }; 
     }
 
-    saveToFirebase() {
-      this.props.firebase.saveBusyEvents(this.state.eventId, this.state.eventsList); 
-      // const eventRef = firebase.database.ref('events').orderByChild("id").equalTo("-M5kSRn_2aPhuLkaamB6");
-      // var newEventRef = eventRef.busyEvents.push(); 
-      // newEventRef.set({
-      //     4 : eventsList
-      // }); 
+    componentDidMount() {
+     this.props.firebase.database.ref('/events/' + this.state.eventId).once('value')
+     .then(snapshot => {
+        this.setState({
+          min: snapshot.val().startDate, 
+          max: snapshot.val().endDate
+        })
+     }); 
+    }
+
+    saveBusyEvents() {
+      const eventRef = this.props.firebase.database.ref('events/' + this.state.eventId + '/busyEvents'); 
+      eventRef.push(this.state.eventsList); 
     }
 
 
@@ -51,8 +60,8 @@ export default class FreeBusy extends React.Component {
     getEvents() {
         return ApiCalendar.gapi.client.calendar.freebusy.query({
               "resource": {
-                "timeMin": "2020-04-24T21:00:31-00:00",
-                "timeMax": "2020-04-29T21:00:31-00:00",
+                "timeMin": moment(this.state.min).toISOString(),
+                "timeMax": moment(this.state.max).toISOString(),
                 "timeZone": "America/Los_Angeles",
                 "items": this.state.calendarList
               }
@@ -67,7 +76,7 @@ export default class FreeBusy extends React.Component {
                   }); 
               }); 
           });
-          this.saveToFirebase(); 
+          this.saveBusyEvents(); 
         },
       function(err) { console.error("Execute error", err); });
     }

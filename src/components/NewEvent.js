@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { FirebaseContext } from './Firebase';
 import NavBar from './NavBar'; 
-import SendEmails from './SendEmails'; 
 
 const INITIAL_STATE = {
     username: '',
