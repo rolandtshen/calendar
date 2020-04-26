@@ -16,7 +16,6 @@ export default class FreeBusy extends React.Component {
     }
 
     getCalendars() { 
-      var listString = "["; 
       return ApiCalendar.gapi.client.calendar.calendarList.list({
         "minAccessRole": "writer",
         "showDeleted": false,
@@ -24,28 +23,25 @@ export default class FreeBusy extends React.Component {
       })
       .then(response => {
         response.result.items.map( (cal) => {
-          const id = "{ 'id'  : " + cal.id + " },"; 
-          listString += id; 
+          const id = { 'id' : cal.id }; 
           this.setState({
-            calendarList: [...this.state.calendarList, cal.id]
+            calendarList: [...this.state.calendarList, id]
           });
         }); 
-        listString += "]"; 
-        this.getEvents(listString); 
+        this.getEvents(); 
       }, 
       function(err) {
         console.error("Execute error", err);
       });
     }   
 
-    getEvents(listString) {
-        var json = JSON.parse(listString); 
+    getEvents() {
         return ApiCalendar.gapi.client.calendar.freebusy.query({
               "resource": {
                 "timeMin": "2020-04-24T21:00:31-00:00",
                 "timeMax": "2020-04-29T21:00:31-00:00",
                 "timeZone": "America/Los_Angeles",
-                "items": json
+                "items": this.state.calendarList
               }
             })
         .then( response => {
@@ -73,7 +69,7 @@ export default class FreeBusy extends React.Component {
                 Add Calendar
             </button>
             <br/>
-            <div> hii {this.state.calendarList}</div>
+            <div> hii </div>
           </div> 
         );
     }
