@@ -9,12 +9,23 @@ export default class FreeBusy extends React.Component {
         this.getCalendars = this.getCalendars.bind(this);
         this.addCalendar = this.addCalendar.bind(this); 
         this.getEvents = this.getEvents.bind(this); 
+        this.saveToFirebase = this.saveToFirebase.bind(this); 
         this.state = {
           calendarList : [],
           eventsList: [], 
           eventId: ""
         }; 
     }
+
+    saveToFirebase() {
+      this.props.firebase.saveBusyEvents(this.state.eventId, this.state.eventsList); 
+      // const eventRef = firebase.database.ref('events').orderByChild("id").equalTo("-M5kSRn_2aPhuLkaamB6");
+      // var newEventRef = eventRef.busyEvents.push(); 
+      // newEventRef.set({
+      //     4 : eventsList
+      // }); 
+    }
+
 
     getCalendars() { 
       return ApiCalendar.gapi.client.calendar.calendarList.list({
@@ -55,7 +66,7 @@ export default class FreeBusy extends React.Component {
                   }); 
               }); 
           });
-          this.props.firebase.saveBusyEvents(this.state.eventId, this.state.eventsList); 
+          this.saveToFirebase(); 
         },
       function(err) { console.error("Execute error", err); });
     }

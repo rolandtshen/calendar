@@ -55,12 +55,18 @@ class Firebase {
     }
 
     saveBusyEvents = (eventId, eventsList) => {
-        const uid = this.getCurrentUser().uid; 
-        const eventRef = this.database.ref('events').orderByChild("id").equalTo(eventId);
-        var newEventRef = eventRef.busyEvents.push(); 
-        newEventRef.set({
-            uid : eventsList
-        }); 
+        // const uid = this.getCurrentUser().uid; 
+        // const eventRef = this.database.ref('events').orderByChild("id").equalTo(eventId);
+        // var newEventRef = eventRef.busyEvents.push(); 
+        // newEventRef.set({
+        //     uid : eventsList
+        // }); 
+      let id = "-M5kSRn_2aPhuLkaamB6"; 
+      const event = this.database.ref('events')
+            .equalTo(id)
+            .limitToFirst(1); 
+      console.log(event); 
+
     }
 }
 

@@ -7,7 +7,8 @@ import NewEventWrapper from './components/NewEvent'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Google from "./components/Google";
 import FreeBusy from './components/FreeBusy'; 
-import { withFirebase } from './components/Firebase';
+import CalendarView from "./components/CalendarView"; 
+import { FirebaseContext, withFirebase } from './components/Firebase';
 
 import {
   BrowserRouter as Router,
@@ -39,8 +40,13 @@ export default function App() {
           <Route exact path="/google-sign-in">
             <Google />
           </Route>
+          <Route exact path="/calendar-view">
+            <CalendarView />
+          </Route>
           <Route exact path="/free-busy">
-            <FreeBusy />
+            <FirebaseContext.Consumer>
+                {firebase => <FreeBusy firebase={firebase}/>}
+            </FirebaseContext.Consumer>
           </Route>
         </Switch>
     </Router>
