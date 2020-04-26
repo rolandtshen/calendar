@@ -4,6 +4,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { withRouter } from "react-router-dom";
+import FreeBusy from './FreeBusy'; 
 
 const localizer = momentLocalizer(moment);
 
@@ -17,10 +18,10 @@ class CalendarCreator extends React.Component {
             endDate: "",
             location: "",
             itinerary: "",
-            description: ""
+            description: "", 
+            events: []
         }
         this.id = this.props.match.params.id;
-
     }
 
 
@@ -32,13 +33,13 @@ class CalendarCreator extends React.Component {
     fetchEvent = () => {
         const eventsRef = this.props.firebase.database.ref('events');
         eventsRef.on('value', snap => {
-            console.log(snap.val());
+            //console.log(snap.val());
             
             snap.forEach((childSnapshot) => {
                 var childData = childSnapshot.val();
                 var key = childSnapshot.key;
                 if(key === this.id) {
-                    console.log(childData);
+                    //console.log(childData);
                     this.setState({
                         eventName: childData.eventName,
                         startDate: childData.startDate,
@@ -47,6 +48,21 @@ class CalendarCreator extends React.Component {
                         location: childData.location,
                         description: childData.description
                     });
+
+                if(childData.busyEvents) {
+                      Object.keys(childData.busyEvents).forEach( (value) => {     
+                          var set = childData.busyEvents[value]; 
+                          set.map( (event) => {
+                              var e = {
+                                start: moment(event.start).toDate(), 
+                                end: moment(event.end).toDate()
+                              }
+                              this.setState({
+                                events: [...this.state.events, e]
+                              }); 
+                          }); 
+                      });
+                    }
                 }
             });
         });
@@ -65,6 +81,7 @@ class CalendarCreator extends React.Component {
                 <NavBar/>
                 <div className="flex mb-4 h-screen">
                     <div className="w-1/4 p-4">
+                        <FreeBusy eventId={this.id} firebase={this.props.firebase}/>
                         <h1 className="font-bold text-2xl mb-4">Available Meeting Times</h1>
                         <form>
                             <div className="mb-4 w-full">
@@ -95,7 +112,7 @@ class CalendarCreator extends React.Component {
                     <div className="w-3/4">
                         <Calendar
                             localizer={localizer}
-                            events={[]}
+                            events={this.state.events}
                             startAccessor="start"
                             endAccessor="end"
                             defaultView={'week'}
