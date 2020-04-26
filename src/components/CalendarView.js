@@ -9,7 +9,6 @@ class CalendarView extends Component {
 
   constructor(props) {
     super(props); 
-    console.log(moment(new Date()).format("dddd, MMMM Do YYYY, h:mm a")); 
     this.state = {
       events: [
         {
@@ -20,6 +19,7 @@ class CalendarView extends Component {
       ]
     };
   }
+  
 
   convertTimeFormat() {
     
