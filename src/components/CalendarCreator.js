@@ -5,6 +5,8 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { withRouter } from "react-router-dom";
 import FreeBusy from './FreeBusy'; 
+import Cookies from 'js-cookie';
+import Google from './Google'; 
 
 const localizer = momentLocalizer(moment);
 
@@ -19,15 +21,23 @@ class CalendarCreator extends React.Component {
             location: "",
             itinerary: "",
             description: "", 
-            events: []
+            events: [], 
+            signedIn: true
         }
         this.id = this.props.match.params.id;
     }
 
 
     componentDidMount() {
-        //Fetch firebase data
-        this.fetchEvent();
+        const cookieExists = Cookies.get("authUser");  
+        if(!cookieExists) {
+            this.setState({
+                signedIn: false
+            })
+        } else {
+            //Fetch firebase data
+            this.fetchEvent();
+        }
     }
 
     fetchEvent = () => {
@@ -78,7 +88,7 @@ class CalendarCreator extends React.Component {
         });
     }
 
-    render() {
+    displayCalendar = () => {
         return (
             <React.Fragment>
                 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
@@ -125,6 +135,17 @@ class CalendarCreator extends React.Component {
                 </div>
             </React.Fragment>
         );
+    }
+
+    render() {
+        const isLoggedIn = this.state.signedIn;
+        return (
+            <div> 
+            {
+                isLoggedIn ? this.displayCalendar : window.location.href='/login'
+            }
+            </div>
+        )
     }
 }
 
