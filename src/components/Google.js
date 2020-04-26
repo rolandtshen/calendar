@@ -24,7 +24,7 @@ export default class Google extends React.Component {
      handleItemClick(event, name) {
         if (name === 'sign-in') {
             ApiCalendar.handleAuthClick();
-            window.location.href='/login';
+            window.location.href='/calendarCreator';
         }
     }
 

@@ -37,7 +37,7 @@ class RegisterForm extends Component {
                 console.log("registered");
                 console.log(authUser);
                 alert("registered");
-                window.location.href='/google-sign-in';
+                window.location.href='/login';
 
             })
             .catch(error => {
