@@ -49,13 +49,17 @@ class CalendarCreator extends React.Component {
                         description: childData.description
                     });
 
+                // const user = this.props.firebase.getCurrentUser(); 
+                // console.log("email: " + user.getProviderData().getEmail()); 
+
                 if(childData.busyEvents) {
                       Object.keys(childData.busyEvents).forEach( (value) => {     
                           var set = childData.busyEvents[value]; 
                           set.map( (event) => {
                               var e = {
                                 start: moment(event.start).toDate(), 
-                                end: moment(event.end).toDate()
+                                end: moment(event.end).toDate(), 
+                                title: "BUSY"
                               }
                               this.setState({
                                 events: [...this.state.events, e]
