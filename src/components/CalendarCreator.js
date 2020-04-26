@@ -101,12 +101,16 @@ class CalendarCreator extends React.Component {
                                 <input name="location" value={this.state.location} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
                             </div>
                             <div className="mb-4 w-full">
-                                <label className="block text-gray-700">Start Date</label>
-                                <input name="startDate" value={this.state.startDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                                <label className="block text-gray-700">Event Date</label>
+                                <input name="startDate" value={this.state.startDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="date" placeholder="Eg. Picnic"></input>
                             </div>
                             <div className="mb-4 w-full">
-                                <label className="block text-gray-700">End Date</label>
-                                <input name="endDate" value={this.state.endDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                                <label className="block text-gray-700">Start Time</label>
+                                <input name="startDate" value={this.state.startDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="time" placeholder="Eg. Picnic"></input>
+                            </div>
+                            <div className="mb-4 w-full">
+                                <label className="block text-gray-700">End Time</label>
+                                <input name="endDate" value={this.state.endDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="time" placeholder="Eg. Picnic"></input>
                             </div>
                             <label className="block text-gray-700">Itinerary</label>
                             <textarea className="w-full mb-4 p-2 h-40 bg-gray-200" value={this.state.itinerary} placeholder="Eg. Meeting notes, agenda, rough timeline of event etc." name="itinerary" onChange={this.handleChange}></textarea>

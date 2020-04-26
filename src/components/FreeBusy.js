@@ -75,7 +75,7 @@ export default class FreeBusy extends React.Component {
                   }); 
               }); 
           });
-          this.saveBusyEvents(); 
+          this.saveBusyEvents();
         },
       function(err) { console.error("Execute error", err); });
     }
@@ -83,6 +83,7 @@ export default class FreeBusy extends React.Component {
 
    addCalendar() {
       //get permissions
+
       if(!ApiCalendar.sign) {
           ApiCalendar.handleAuthClick();
       }
@@ -94,7 +95,7 @@ export default class FreeBusy extends React.Component {
     render() {
         return (
           <div>
-            <button style={{backgroundColor: "#4845F0"}} onClick={this.addCalendar}>
+            <button style={{backgroundColor: "#4845F0" , color: "white", borderRadius: "5px", padding: "1em", margin: "10px", fontWeight: "600"}} onClick={this.addCalendar}>
                 Add Calendar
             </button>
           </div> 
