@@ -53,6 +53,15 @@ class Firebase {
     getCurrentUser = () => {
         return this.auth.currentUser;
     }
+
+    saveBusyEvents = (eventId, eventsList) => {
+        const uid = this.getCurrentUser().uid; 
+        const eventRef = this.database.ref('events').orderByChild("id").equalTo(eventId);
+        var newEventRef = eventRef.busyEvents.push(); 
+        newEventRef.set({
+            uid : eventsList
+        }); 
+    }
 }
 
 export default Firebase;

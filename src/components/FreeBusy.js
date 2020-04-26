@@ -1,5 +1,6 @@
 import React from 'react';
 import ApiCalendar from 'react-google-calendar-api';
+import { FirebaseContext } from './Firebase';
 
 export default class FreeBusy extends React.Component {
     constructor(props) {
@@ -45,19 +46,16 @@ export default class FreeBusy extends React.Component {
               }
             })
         .then(response => {
-
           var calendars = response.result.calendars;
-
           Object.keys(calendars).forEach( (value, key) => {
             var busy = calendars[value].busy; 
               busy.map( (event) => {
                   this.setState({
                     eventsList: [...this.state.eventsList, event]
                   }); 
-                  console.log(event); 
               }); 
           });
-          //this.saveToFirebase(); 
+          this.props.firebase.saveBusyEvents(this.state.eventId, this.state.eventsList); 
         },
       function(err) { console.error("Execute error", err); });
     }
