@@ -19,16 +19,22 @@ class Home extends Component {
               // User is signed in.
               const eventsRef = this.props.firebase.database.ref('events').orderByChild('createdBy').equalTo(user.uid);
               eventsRef.on('value', snap => {
-                  // console.log(snap.val());
+                  console.log(snap.val());
+                  
                   snap.forEach((childSnapshot) => {
                       var childData = childSnapshot.val();
-                      var joined = this.state.events.concat(childData);
+                      var key = childSnapshot.key;
+                      console.log(childData);
+                      var eventObj = {
+                          event: childData,
+                          id: key
+                      }
+                      console.log(eventObj)
+                      var joined = this.state.events.concat(eventObj);
                       this.setState({
                           events: joined
                       });
-      
                   });
-                  console.log(this.state.events);
                   console.log(this.props.firebase.getCurrentUser());
               });
             } else {
@@ -49,7 +55,7 @@ class Home extends Component {
                         </div>
                         <div className="eventList">
                             {this.state.events.map((event) => (
-                                <EventCell event={event} />
+                                <EventCell event={event.event} id={event.id} />
                             ))}
                         </div>
                     </div>

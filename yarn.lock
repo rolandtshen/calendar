@@ -1727,6 +1727,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.2.tgz#160d82623610db590a64e8ca81784e11117e5a54"
   integrity sha512-LB2R1Oyhpg8gu4SON/mfforE525+Hi/M1ineICEDftqNVTyFg1aRIeGuTvXAoWHc4nbrFncWtJgMmoyRvuGh7A==
 
+"@types/node@^9.6.39":
+  version "9.6.55"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.55.tgz#7cc1358c9c18e71f6c020e410962971863232cf5"
+  integrity sha512-e/5tg8Ok0gSrN6pvHphnwTK0/CD9VPZrtZqpvvpEFAtfs+ZntusgGaWkf2lSEq1OFe2EDPeUMiMVpy4nZpJ4AQ==
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -6417,6 +6422,11 @@ jest@24.9.0:
     import-local "^2.0.0"
     jest-cli "^24.9.0"
 
+js-cookie@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
+  integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -7148,6 +7158,11 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   integrity sha512-P+2gwrFqx8lhew375MQHHeTlY8AuOJSrGf0R5ddkEndUkmwpgUob/vQuBD1V22/Cw1/lJr4x+EjllSezBThzBg==
   dependencies:
     minimist "^1.2.5"
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -8978,10 +8993,17 @@ react-error-overlay@^6.0.7:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
 
-react-google-login@^5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-5.1.3.tgz#be6ce6a77e8502b646ac915242bb79de8b94f91f"
-  integrity sha512-QMNzjekgJWA5T0iwDa4ZwhZBRMX5vwaaeo9bzyaj89P+JJyXrPR039PuotX6BdV5cyJAKBiloMxcbgnQgaPqcw==
+react-google-calendar-api@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/react-google-calendar-api/-/react-google-calendar-api-1.0.11.tgz#6097ac2a1dc05e7d4a327d06d100473df3eb9a7b"
+  integrity sha512-GinuHdJHqxv65SNnxZnQ7lI1dILrmv8HtQNVxZBtKgARsMvVceDsMBL8ZtzDeA7nNk4NEYGLqH7RJj6ebohntw==
+  dependencies:
+    "@types/node" "^9.6.39"
+
+react-google-login@^5.1.10:
+  version "5.1.10"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-5.1.10.tgz#130404f7ea0977ea10c86d993a4ab802837c7c05"
+  integrity sha512-dEmfMGlh9EmFhSNLKG5qzUlVmbUH5E0FmgSM36LfrBg/omr4fHGuNELb+iVqig/I+UgRvhv0hD22m8KTcEjHDA==
   dependencies:
     "@types/react" "*"
     prop-types "^15.6.0"
