@@ -16,7 +16,7 @@ export default class FreeBusy extends React.Component {
           calendarList : [],
           eventsList: [], 
           eventId: this.props.eventId, 
-          min: "", 
+          min: "",
           max: ""
         }; 
     }
@@ -95,10 +95,9 @@ export default class FreeBusy extends React.Component {
     render() {
         return (
           <div>
-            <button onClick={this.addCalendar}>
+            <button style={{backgroundColor: "#4845F0"}} onClick={this.addCalendar}>
                 Add Calendar
             </button>
-            <CalendarView eventsList={this.state.eventsList}/> 
           </div> 
         );
     }
