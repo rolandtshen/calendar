@@ -6,7 +6,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { withRouter } from "react-router-dom";
 import FreeBusy from './FreeBusy'; 
 import Cookies from 'js-cookie';
-import Google from './Google'; 
 
 const localizer = momentLocalizer(moment);
 
