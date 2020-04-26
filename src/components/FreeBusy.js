@@ -7,7 +7,7 @@ export default class FreeBusy extends React.Component {
         this.gapi = ApiCalendar.gapi;
         this.getCalendars = this.getCalendars.bind(this);
         this.addCalendar = this.addCalendar.bind(this); 
-        this.queryFreeBusy = this.queryFreeBusy.bind(this); 
+        this.getEvents = this.getEvents.bind(this); 
         this.state = {
           calendarList : [],
           eventsList: [], 
@@ -15,47 +15,42 @@ export default class FreeBusy extends React.Component {
         }; 
     }
 
-    getCalendars() {
+    getCalendars() { 
+      var listString = "["; 
       return ApiCalendar.gapi.client.calendar.calendarList.list({
         "minAccessRole": "writer",
         "showDeleted": false,
         "showHidden": true
       })
-      .then(function(response) {
-        var calendars = [];
-        response.result.items.map(function(cal) {
-          console.log(cal.id); 
-          calendars.concat(cal.id); 
+      .then(response => {
+        response.result.items.map( (cal) => {
+          const id = "{ 'id'  : " + cal.id + " },"; 
+          listString += id; 
+          this.setState({
+            calendarList: [...this.state.calendarList, cal.id]
+          });
         }); 
-
+        listString += "]"; 
+        this.getEvents(listString); 
       }, 
       function(err) {
         console.error("Execute error", err);
-      }); 
+      });
     }   
 
-    queryFreeBusy() {
+    getEvents(listString) {
+        var json = JSON.parse(listString); 
         return ApiCalendar.gapi.client.calendar.freebusy.query({
               "resource": {
                 "timeMin": "2020-04-24T21:00:31-00:00",
                 "timeMax": "2020-04-29T21:00:31-00:00",
                 "timeZone": "America/Los_Angeles",
-                "items": [
-                  {
-                    "id": "rapolusakura@gmail.com"
-                  },
-                  {
-                    "id": "terc309ucoq7tu223q9v7v2elk@group.calendar.google.com"
-                  }, 
-                  {
-                    "id" : "usc.edu_kjaa4bpqerrrc3g24k7mh3mokk@group.calendar.google.com"
-                  }
-                ]
+                "items": json
               }
             })
-        .then(function(response) {
+        .then( response => {
             // Handle the results here (response.result has the parsed body).
-            console.log("Response", response);
+            console.log("omfg", response);
           },
       function(err) { console.error("Execute error", err); });
     }
@@ -69,7 +64,6 @@ export default class FreeBusy extends React.Component {
 
       //get list of user's calendars
       this.getCalendars(); 
-      //console.log(result); 
     }
 
     render() {
@@ -78,8 +72,8 @@ export default class FreeBusy extends React.Component {
             <button onClick={this.addCalendar}>
                 Add Calendar
             </button>
-
-
+            <br/>
+            <div> hii {this.state.calendarList}</div>
           </div> 
         );
     }
