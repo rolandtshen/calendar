@@ -66,14 +66,11 @@ class LoginForm extends Component {
                         </div>
 
                         <div className="login-buttons">
-
-
                             <span className="btn-group-2">
                                 <Button onClick={event =>  window.location.href='/register'} size="lg" variant="primary">Register</Button>{' '}
-                                <Button onClick={event =>  window.location.href='/home'} size="lg" variant="primary">Guest</Button>{' '}
+                                <Button onClick={event =>  window.location.href='/'} size="lg" variant="primary">Guest</Button>{' '}
                                 <Button onClick={this.onSubmit}size="lg" variant="primary">Login</Button>{' '}
                             </span>
-
                         </div>
                     </div>
                 </Container>

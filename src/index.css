@@ -201,3 +201,17 @@ nav {
 .deleteEmail {
   display: inline-block;
 }
+
+.google-Page{
+  text-align: center;
+  padding-top: 10%;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.google-Button {
+  background-color: #B6EDF3;
+
+>>>>>>> cleaned up sign in UI
+}
