@@ -25,7 +25,16 @@ class Firebase {
         this.authenticatedUser = this.state.authenticatedUser;
     }
     doCreateUserWithEmailAndPassword = (email, password) => {
-        this.auth.createUserWithEmailAndPassword(email, password);
+        this.auth.createUserWithEmailAndPassword(email, password).then(user => {
+            return this.auth.currentUser.getIdToken().then(idToken => {
+                console.log(idToken);
+                const cookieOptions = {
+                    expires: 30
+                };
+                Cookies.set('authUser', idToken, cookieOptions);
+                window.location = '/'
+            })
+        });
     }
 
     doSignInWithEmailAndPassword = (email, password) =>
@@ -36,6 +45,7 @@ class Firebase {
                     expires: 30
                 };
                 Cookies.set('authUser', idToken, cookieOptions);
+                window.location = '/'
             })
         });
 
@@ -43,6 +53,7 @@ class Firebase {
         console.log("Signing out");
         this.auth.signOut()
         Cookies.remove('authUser');
+        window.location = '/';
     };
 
     addEvent = (event) => {
