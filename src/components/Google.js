@@ -2,11 +2,6 @@ import React from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import Button from "react-bootstrap/Button";
 
-/**
- * The code in this file was referenced from the following website:
- * https://www.npmjs.com/package/react-google-calendar-api
- */
-
 export default class Google extends React.Component {
     constructor(props) {
         super(props);

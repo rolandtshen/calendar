@@ -15,30 +15,31 @@ import {
 } from "react-router-dom";
 
 const HomeWithFirebase = withFirebase(Home);
+const CalendarWithFirebase = withFirebase(CalendarCreator);
 
 export default function App() {
   return (
     <Router>
-        <Switch>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/calendarCreator">
-            <CalendarCreator />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route exact path="/newEvent">
-            <NewEventWrapper />
-          </Route>
-          <Route exact path="/">
-            <HomeWithFirebase />
-          </Route>
-          <Route exact path="/google-sign-in">
-            <Google />
-          </Route>
-        </Switch>
+      <Switch>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/calendar/:id">
+          <CalendarWithFirebase />
+        </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
+        <Route exact path="/newEvent">
+          <NewEventWrapper />
+        </Route>
+        <Route exact path="/">
+          <HomeWithFirebase />
+        </Route>
+        <Route exact path="/google-sign-in">
+          <Google />
+        </Route>
+      </Switch>
     </Router>
   );
 }
