@@ -9,12 +9,13 @@ class CalendarView extends Component {
 
   constructor(props) {
     super(props); 
+    console.log(moment(new Date()).format("dddd, MMMM Do YYYY, h:mm a")); 
     this.state = {
       events: [
         {
-          start: moment().toDate(),
-          end: moment().add(1, "hour").toDate(),
-          title: "Some title"
+          start: moment("2020-04-25T15:00:00-07:00").toDate(),
+          end: moment("2020-04-25T19:45:00-07:00").add(1, "hour").toDate(),
+          title: "BUSY"
         }
       ]
     };
