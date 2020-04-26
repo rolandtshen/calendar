@@ -1,7 +1,6 @@
 import React from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import { FirebaseContext } from './Firebase';
-import CalendarView from './CalendarView';
 import moment from "moment"; 
 
 export default class FreeBusy extends React.Component {
