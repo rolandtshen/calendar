@@ -88,22 +88,35 @@ code {
 
 }
 
+.eventWrapper {
+  color: black;
+}
+
+.eventWrapper:hover {
+  color: black;
+}
+
 .event {
   width: 300px;
   padding: 20px;
-  box-shadow: 0px 13px 13px rgba(0,0,0,.08),0px 3px 8px rgba(0,0,0,.08);
+  box-shadow: 0px 13px 20px rgba(0,0,0,.08),0px 3px 8px rgba(0,0,0,.08);;
   border: 1px solid lightgray;
   border-radius: 10px;
   float: left;
   margin-right: 40px;
   margin-bottom: 40px;
+  transition: 0.2s;
+}
+
+.event:hover {
+  box-shadow: 0px 15px 20px rgba(0,0,0,.1),0px 10px 30px rgba(0,0,0,.1);
 }
 
 .event .event-bottom {
   margin-top: 100px;
 }
 
-.event h2 {
+.event .eventName {
   margin-bottom: 0px;
   font-size: 28px;
   font-weight: 500;
@@ -174,10 +187,10 @@ code {
 
 .line-Vertical {
   position: absolute;
-  width: 842px;
+  width: 850px;
   height: 0.5px;
   left: -100px;
-  bottom: 148px;
+  bottom: 182px;
 
 
   background: #B7B7B7;
@@ -212,4 +225,9 @@ nav {
 
 .google-Button {
   background-color: #B6EDF3;
+}
+
+.add-Cal {
+  padding-top: 145px;
+  padding-left: 160px;
 }
