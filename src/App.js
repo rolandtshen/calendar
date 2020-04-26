@@ -6,7 +6,7 @@ import CalendarCreator from './components/CalendarCreator';
 import NewEventWrapper from './components/NewEvent'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Google from "./components/Google";
-import CalendarView from './components/CalendarView'; 
+import FreeBusy from './components/FreeBusy'; 
 import { withFirebase } from './components/Firebase';
 
 import {
@@ -39,8 +39,8 @@ export default function App() {
           <Route exact path="/google-sign-in">
             <Google />
           </Route>
-          <Route exact path="/calendar-view">
-            <CalendarView />
+          <Route exact path="/free-busy">
+            <FreeBusy />
           </Route>
         </Switch>
     </Router>
