@@ -5,12 +5,36 @@ export default class FreeBusy extends React.Component {
     constructor(props) {
         super(props);
         this.gapi = ApiCalendar.gapi;
-        this.execute = this.execute.bind(this);
-        this.one = this.one.bind(this); 
+        this.getCalendars = this.getCalendars.bind(this);
+        this.addCalendar = this.addCalendar.bind(this); 
+        this.queryFreeBusy = this.queryFreeBusy.bind(this); 
+        this.state = {
+          calendarList : [],
+          eventsList: [], 
+          eventId: ""
+        }; 
     }
 
+    getCalendars() {
+      return ApiCalendar.gapi.client.calendar.calendarList.list({
+        "minAccessRole": "writer",
+        "showDeleted": false,
+        "showHidden": true
+      })
+      .then(function(response) {
+        var calendars = [];
+        response.result.items.map(function(cal) {
+          console.log(cal.id); 
+          calendars.concat(cal.id); 
+        }); 
 
-    execute() {
+      }, 
+      function(err) {
+        console.error("Execute error", err);
+      }); 
+    }   
+
+    queryFreeBusy() {
         return ApiCalendar.gapi.client.calendar.freebusy.query({
               "resource": {
                 "timeMin": "2020-04-24T21:00:31-00:00",
@@ -36,19 +60,27 @@ export default class FreeBusy extends React.Component {
       function(err) { console.error("Execute error", err); });
     }
 
-     one() {
-        if(!ApiCalendar.sign) {
-            ApiCalendar.handleAuthClick();
-        }
-        var result = this.execute(); 
-        //console.log(result); 
+
+   addCalendar() {
+      //get permissions
+      if(!ApiCalendar.sign) {
+          ApiCalendar.handleAuthClick();
+      }
+
+      //get list of user's calendars
+      this.getCalendars(); 
+      //console.log(result); 
     }
 
     render() {
         return (
-            <button onClick={this.one}>
+          <div>
+            <button onClick={this.addCalendar}>
                 Add Calendar
             </button>
+
+
+          </div> 
         );
     }
 
