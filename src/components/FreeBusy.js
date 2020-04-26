@@ -44,10 +44,21 @@ export default class FreeBusy extends React.Component {
                 "items": this.state.calendarList
               }
             })
-        .then( response => {
-            // Handle the results here (response.result has the parsed body).
-            console.log("omfg", response);
-          },
+        .then(response => {
+
+          var calendars = response.result.calendars;
+
+          Object.keys(calendars).forEach( (value, key) => {
+            var busy = calendars[value].busy; 
+              busy.map( (event) => {
+                  this.setState({
+                    eventsList: [...this.state.eventsList, event]
+                  }); 
+                  console.log(event); 
+              }); 
+          });
+          //this.saveToFirebase(); 
+        },
       function(err) { console.error("Execute error", err); });
     }
 
