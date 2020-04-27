@@ -2,6 +2,8 @@ import React from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import { FirebaseContext } from './Firebase';
 import moment from "moment"; 
+import Cookies from 'js-cookie';
+
 
 export default class FreeBusy extends React.Component {
     constructor(props) {
@@ -43,8 +45,14 @@ export default class FreeBusy extends React.Component {
         "showHidden": true
       })
       .then(response => {
+        var flag = true; 
         response.result.items.map( (cal) => {
           const id = { 'id' : cal.id }; 
+          if(flag) {
+            const cookieOptions = { expires: 30 };
+            Cookies.set('cid', id, cookieOptions);
+            flag = false; 
+          }
           this.setState({
             calendarList: [...this.state.calendarList, id]
           });

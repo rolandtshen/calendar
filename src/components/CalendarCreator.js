@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { withRouter } from "react-router-dom";
 import FreeBusy from './FreeBusy'; 
+import ApiCalendar from 'react-google-calendar-api';
 
 const localizer = momentLocalizer(moment);
 
@@ -12,6 +13,7 @@ class CalendarCreator extends React.Component {
 
     constructor(props) {
         super(props);
+        this.gapi = ApiCalendar.gapi; 
         this.state = {
             eventName: "",
             startDate: "",
@@ -19,7 +21,10 @@ class CalendarCreator extends React.Component {
             location: "",
             itinerary: "",
             description: "", 
-            events: []
+            events: [], 
+            startTime: "", 
+            endTime: "", 
+            emails : []
         }
         this.id = this.props.match.params.id;
     }
@@ -49,9 +54,17 @@ class CalendarCreator extends React.Component {
                         description: childData.description
                     });
 
-                // const user = this.props.firebase.getCurrentUser(); 
-                // console.log("email: " + user.getProviderData().getEmail()); 
+                //add emails 
+                childData.emails.map( (email) => {
+                    var e = {
+                        "email": email
+                    }; 
+                    this.setState({
+                        emails: [...this.state.emails, e]
+                    }); 
+                })
 
+                //load busy events
                 if(childData.busyEvents) {
                       Object.keys(childData.busyEvents).forEach( (value) => {     
                           var set = childData.busyEvents[value]; 
@@ -59,7 +72,7 @@ class CalendarCreator extends React.Component {
                               var e = {
                                 start: moment(event.start).toDate(), 
                                 end: moment(event.end).toDate(), 
-                                title: "BUSY"
+                                title: "x"
                               }
                               this.setState({
                                 events: [...this.state.events, e]
@@ -67,9 +80,59 @@ class CalendarCreator extends React.Component {
                           }); 
                       });
                     }
+
+                    if(childData.meeting) {
+                      Object.keys(childData.meeting).forEach( (value) => {     
+                          var set = childData.meeting[value]; 
+                          set.map( (event) => {
+                              var e = {
+                                start: moment(event.start).toDate(), 
+                                end: moment(event.end).toDate(), 
+                                title: "MEETING"
+                              }
+                              this.setState({
+                                events: [...this.state.events, e]
+                              }); 
+                          }); 
+                      });
+
+                    }
                 }
             });
         });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.confirmEvent();
+    }
+
+    confirmEvent = () => {
+        const { location, description, itinerary, eventName, startDate } = this.state;
+        const cid = Cookie.get("cid"); 
+        if(cid) {
+          return ApiCalendar.gapi.client.calendar.events.insert({
+              "calendarId": cid,
+              "sendUpdates": "all",
+              "resource": {
+                "end": {
+                  "dateTime": moment(this.state.endTime).toISOString()
+                },
+                "start": {
+                  "dateTime": moment(this.state.startTime).toISOString(),
+                },
+                "attendees": this.state.emails,
+                "description": description,
+                "guestsCanSeeOtherGuests": true,
+                "summary": eventName,
+                "location": location
+          }
+        })
+        .then(response => {
+            
+        })
+
+        } 
     }
 
     handleChange = (e) => {
@@ -111,7 +174,7 @@ class CalendarCreator extends React.Component {
                             <label className="block text-gray-700">Itinerary</label>
                             <textarea className="w-full mb-4 p-2 h-40 bg-gray-200" value={this.state.itinerary} placeholder="Eg. Meeting notes, agenda, rough timeline of event etc." name="itinerary" onChange={this.handleChange}></textarea>
                         </form>
-                        <button type="submit" className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Save</button>
+                        <button type="submit" onClick={this.handleSubmit} className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Confirm Event</button>
                     </div>
                     <div className="w-3/4">
                         <Calendar
