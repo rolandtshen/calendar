@@ -18,7 +18,8 @@ export default class FreeBusy extends React.Component {
           eventsList: [], 
           eventId: this.props.eventId, 
           min: "",
-          max: ""
+          max: "", 
+          added: false
         }; 
     }
 
@@ -92,13 +93,17 @@ export default class FreeBusy extends React.Component {
 
    addCalendar() {
       //get permissions
-
       if(!ApiCalendar.sign) {
           ApiCalendar.handleAuthClick();
       }
-
-      //get list of user's calendars
-      this.getCalendars(); 
+      if(!this.state.added) {
+        this.getCalendars();
+        this.setState({
+          added : true
+        }); 
+      } else {
+        alert("Already added your calendar!"); 
+      }
     }
 
     render() {

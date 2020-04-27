@@ -77,17 +77,14 @@ class CalendarCreator extends React.Component {
                     }
 
                     if(childData.meeting) {
-                      Object.keys(childData.meeting).forEach( (value) => {     
-                          var event = childData.meeting[value]; 
                           var e = {
-                            start: moment(event.start).toDate(), 
-                            end: moment(event.end).toDate(), 
+                            start: moment(childData.meeting.start).toDate(), 
+                            end: moment(childData.meeting.end).toDate(), 
                             title: "MEETING"
                           }
                           this.setState({
                             events: [...this.state.events, e]
                           }); 
-                      });
                     }
                 }
             });
