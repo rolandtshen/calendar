@@ -6,6 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { withRouter } from "react-router-dom";
 import FreeBusy from './FreeBusy'; 
 import ApiCalendar from 'react-google-calendar-api';
+import Cookies from 'js-cookie';
 
 const localizer = momentLocalizer(moment);
 
@@ -77,38 +78,35 @@ class CalendarCreator extends React.Component {
 
                     if(childData.meeting) {
                       Object.keys(childData.meeting).forEach( (value) => {     
-                          var set = childData.meeting[value]; 
-                          set.map( (event) => {
-                              var e = {
-                                start: moment(event.start).toDate(), 
-                                end: moment(event.end).toDate(), 
-                                title: "MEETING"
-                              }
-                              this.setState({
-                                events: [...this.state.events, e]
-                              }); 
+                          var event = childData.meeting[value]; 
+                          var e = {
+                            start: moment(event.start).toDate(), 
+                            end: moment(event.end).toDate(), 
+                            title: "MEETING"
+                          }
+                          this.setState({
+                            events: [...this.state.events, e]
                           }); 
                       });
-
                     }
                 }
             });
         });
     }
 
-    confirmEvent = () => {
+    confirmEvent = (start, end) => {
         const { location, description, itinerary, eventName, startDate } = this.state;
-        const cid = Cookie.get("cid"); 
+        const cid = Cookies.get("cid"); 
         if(cid) {
           return ApiCalendar.gapi.client.calendar.events.insert({
               "calendarId": cid,
               "sendUpdates": "all",
               "resource": {
                 "end": {
-                  "dateTime": moment(this.state.endTime).toISOString()
+                  "dateTime": end
                 },
                 "start": {
-                  "dateTime": moment(this.state.startTime).toISOString(),
+                  "dateTime": start
                 },
                 "attendees": this.state.emails,
                 "description": description,
@@ -118,7 +116,7 @@ class CalendarCreator extends React.Component {
           }
         })
         .then(response => {
-            
+            console.log(response); 
         })
 
         } 
@@ -128,9 +126,9 @@ class CalendarCreator extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         }, () => {
-            console.log(this.state.eventDate);
-            console.log(this.state.startTime);
-            console.log(this.state.endTime);
+            // console.log(this.state.eventDate);
+            // console.log(this.state.startTime);
+            // console.log(this.state.endTime);
         });
     }
 
@@ -152,7 +150,7 @@ class CalendarCreator extends React.Component {
             start: startString,
             end: endString
         });
-        this.confirmEvent(); 
+        this.confirmEvent(startString, endString); 
     }
 
     render() {

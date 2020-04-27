@@ -50,7 +50,8 @@ export default class FreeBusy extends React.Component {
           const id = { 'id' : cal.id }; 
           if(flag) {
             const cookieOptions = { expires: 30 };
-            Cookies.set('cid', id, cookieOptions);
+            Cookies.set('cid', cal.id, cookieOptions);
+            console.log('cookie: ' + cal.id); 
             flag = false; 
           }
           this.setState({
