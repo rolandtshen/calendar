@@ -109,8 +109,8 @@ export default class FreeBusy extends React.Component {
     render() {
         return (
           <div>
-            <button style={{backgroundColor: "#4845F0" , color: "white", borderRadius: "5px", padding: "1em", margin: "10px", fontWeight: "600"}} onClick={this.addCalendar}>
-                Add Calendar
+            <button style={{backgroundColor: "#4845F0" , color: "white", borderRadius: "5px", padding: "1em", marginBottom: "12px", fontWeight: "600"}} onClick={this.addCalendar}>
+                Add My Calendar
             </button>
           </div> 
         );

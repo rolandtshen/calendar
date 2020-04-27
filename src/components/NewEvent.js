@@ -47,14 +47,13 @@ class NewEvent extends Component {
             startDate: "",
             endDate: ""
         }
+        this.webSocket = new WebSocket("ws://47.145.112.177:8080/validator/ws");
     }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        }, () => {
-            console.log(this.state.startDate);
-        })
+        });
     }
 
     handleDeleteEmail = (idx) => {
@@ -77,7 +76,6 @@ class NewEvent extends Component {
             this.setState({
                 currentEmail: ""
             });
-            console.log(this.state.emails);
         });
     }
 
@@ -94,7 +92,20 @@ class NewEvent extends Component {
             createdBy: this.props.firebase.getCurrentUser().uid,
             createdAt: new Date().toString()
         }
-        this.props.firebase.addEvent(event);
+        console.log(event);
+        while(this.webSocket.readyState === 0) {
+        }
+        console.log(this.state.startDate + ";" + this.state.endDate + ";" + this.state.emails + ';' + this.state.location + ';' + this.state.eventLength + ';' + this.state.eventName + ';' + this.state.description);
+        this.webSocket.send(this.state.startDate + ";" + this.state.endDate + ";" + this.state.emails + ';' + this.state.location + ';' + this.state.eventLength + ';' + this.state.eventName + ';' + this.state.description);
+        this.webSocket.onmessage = (e) => {            
+            if(e.data !== "success") {                
+                console.log("error!");
+            } 
+            else {
+                this.props.firebase.addEvent(event);
+            }
+            console.log(e.data);
+        }
     }
 
     render() {
@@ -123,7 +134,7 @@ class NewEvent extends Component {
                                 <div className="w-full">
                                     <h3 className="text-black text-xl mb-6 font-medium">Invite people to your event</h3>
                                     <EmailList emails={this.state.emails} handleDelete={this.handleDeleteEmail}/>
-                                    <input className="mt-4 block border-gray-500 border rounded p-2 bg-gray-200 inline-block" type="text" name="currentEmail" onChange={this.handleChange} value={this.state.currentEmail} placeholder="Add email"></input>
+                                    <input className="mt-4 block border-gray-500 border rounded p-2 bg-gray-200 inline-block" type="email" name="currentEmail" onChange={this.handleChange} value={this.state.currentEmail} placeholder="Add email"></input>
                                     <button className="inline-block ml-4" onClick={this.addEmail}>+</button>
                                 </div>
                             </div>

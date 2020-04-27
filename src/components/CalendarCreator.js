@@ -77,14 +77,14 @@ class CalendarCreator extends React.Component {
                     }
 
                     if(childData.meeting) {
-                          var e = {
+                        var e = {
                             start: moment(childData.meeting.start).toDate(), 
                             end: moment(childData.meeting.end).toDate(), 
                             title: "MEETING"
-                          }
-                          this.setState({
+                        }
+                        this.setState({
                             events: [...this.state.events, e]
-                          }); 
+                        }); 
                     }
                 }
             });
@@ -150,6 +150,35 @@ class CalendarCreator extends React.Component {
         this.confirmEvent(startString, endString); 
     }
 
+    eventStyleGetter = (event, start, end, isSelected) => {
+        if(event.title === "MEETING") {
+            var style = {
+                backgroundColor: 'rgba(255, 245, 0, 0.4)',
+                borderRadius: '0px',
+                opacity: 0.8,
+                color: 'black',
+                border: '0px',
+                display: 'block'
+            };
+            return {
+                style: style
+            };
+        }
+        else {
+            var style = {
+                backgroundColor: 'rgba(25, 0, 255, 0.2)',
+                borderRadius: '0px',
+                opacity: 0.8,
+                color: 'black',
+                border: '0px',
+                display: 'block'
+            };
+            return {
+                style: style
+            };
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -158,15 +187,13 @@ class CalendarCreator extends React.Component {
                 <div className="flex mb-4 h-screen">
                     <div className="w-1/4 p-4">
                         <FreeBusy eventId={this.id} firebase={this.props.firebase}/>
-                        <h1 className="font-bold text-2xl mb-4">{this.state.eventName}</h1>
+                        <h1 className="font-bold text-2xl mb-2 mt-4">Event name: {this.state.eventName}</h1>
                         <form>
-                            <div className="mb-4 w-full">
-                                <label className="block text-gray-700">Description</label>
-                                <input readOnly name="description" value={this.state.description} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. A picnic to start the year and welcome new employees"></input>
+                            <div className="mb-2 w-full">
+                                <label className="block text-gray-700">Description: {this.state.description}</label>
                             </div>
                             <div className="mb-4 w-full">
-                                <label className="block text-gray-700">Location</label>
-                                <input readOnly name="location" value={this.state.location} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                                <label className="block text-gray-700">Location: {this.state.location}</label>
                             </div>
                             <div className="mb-4 w-full">
                                 <label className="block text-gray-700">Event Date</label>
@@ -183,8 +210,6 @@ class CalendarCreator extends React.Component {
                             <label className="block text-gray-700">Itinerary</label>
                             <textarea className="w-full mb-4 p-2 h-40 bg-gray-200" value={this.state.itinerary} placeholder="Eg. Meeting notes, agenda, rough timeline of event etc." name="itinerary" onChange={this.handleChange}></textarea>
                         </form>
-                        <button type="submit" className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Save</button>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <button type="submit" onClick={this.addMeeting} className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Confirm Event</button>
                     </div>
                     <div className="w-3/4">
@@ -194,6 +219,7 @@ class CalendarCreator extends React.Component {
                             startAccessor="start"
                             endAccessor="end"
                             defaultView={'week'}
+                            eventPropGetter={(this.eventStyleGetter)}
                         />
                     </div>
                 </div>
