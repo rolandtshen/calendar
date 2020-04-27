@@ -46,9 +46,6 @@ class CalendarCreator extends React.Component {
                         description: childData.description
                     });
 
-                // const user = this.props.firebase.getCurrentUser(); 
-                // console.log("email: " + user.getProviderData().getEmail()); 
-
                 if(childData.busyEvents) {
                       Object.keys(childData.busyEvents).forEach( (value) => {     
                           var set = childData.busyEvents[value]; 
@@ -91,31 +88,14 @@ class CalendarCreator extends React.Component {
         e.preventDefault();
         var startObj = this.parseDate(this.state.eventDate, this.state.startTime);
         var endObj = this.parseDate(this.state.eventDate, this.state.endTime);
-        const ref = this.props.firebase.database.ref('events/' + this.id);
-        var meeting = {
-            start: startObj,
-            end: endObj
-        }
-        console.log(meeting);
-        ref.push(meeting);
-        // eventsRef.on('value', snap => {
-        //     //console.log(snap.val());
-        //     snap.forEach((childSnapshot) => {
-        //         var childData = childSnapshot.val();
-        //         var key = childSnapshot.key;
-        //         if (key === this.id) {
-        //             var startObj = this.parseDate(this.state.eventDate, this.state.startTime);
-        //             var endObj = this.parseDate(this.state.eventDate, this.state.endTime);
-        //
-        //             var meeting = {
-        //                 start: startObj,
-        //                 end: endObj
-        //             }
-        //             childSnapshot.push
-        //         }
-        //     });
-        //     //console.log(childData);
-        // });
+        const eventRef = this.props.firebase.database.ref('/events/' + this.id).child('meeting');
+
+        var startString = moment(startObj).toISOString();
+        var endString = moment(endObj).toISOString();
+        eventRef.set({
+            start: startString,
+            end: endString
+        });
     }
 
     render() {
