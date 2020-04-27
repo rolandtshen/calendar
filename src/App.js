@@ -9,6 +9,7 @@ import Google from "./components/Google";
 import { FirebaseContext, withFirebase } from './components/Firebase';
 import { Redirect } from 'react-router';
 import Cookies from 'js-cookie';
+import { Helmet } from 'react-helmet';
 
 import {
   BrowserRouter as Router,
@@ -45,24 +46,29 @@ const PrivateRouteWithFirebase = withFirebase(PrivateRoute);
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/calendar/:id">
-          <CalendarWithFirebase />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-        </Route>
-        <PrivateRoute path="/newEvent" component={NewEventWrapper} />
-        <PrivateRoute path="/" component={HomeWithFirebase} />
-        <Route exact path="/google-sign-in">
-          <Google />
-        </Route>
-      </Switch>
-    </Router>
+    <React.Fragment>
+      <Helmet>
+          <title>Calendar</title>
+      </Helmet>
+      <Router>
+        <Switch>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/calendar/:id">
+            <CalendarWithFirebase />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+          <PrivateRoute path="/newEvent" component={NewEventWrapper} />
+          <PrivateRoute path="/" component={HomeWithFirebase} />
+          <Route exact path="/google-sign-in">
+            <Google />
+          </Route>
+        </Switch>
+      </Router>
+    </React.Fragment>
   );
 }
 
