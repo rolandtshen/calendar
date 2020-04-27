@@ -67,28 +67,28 @@ export default class FreeBusy extends React.Component {
     }   
 
     getEvents() {
-        return ApiCalendar.gapi.client.calendar.freebusy.query({
-              "resource": {
-                "timeMin": moment(this.state.min).toISOString(),
-                "timeMax": moment(this.state.max).toISOString(),
-                "timeZone": "America/Los_Angeles",
-                "items": this.state.calendarList
-              }
-            })
-        .then(response => {
-          var calendars = response.result.calendars;
-          Object.keys(calendars).forEach( (value, key) => {
-            var busy = calendars[value].busy; 
-              busy.map( (event) => {
-                  this.setState({
-                    eventsList: [...this.state.eventsList, event]
-                  }); 
-              }); 
-          });
-          this.saveBusyEvents();
-        },
-      function(err) { console.error("Execute error", err); });
-    }
+      return ApiCalendar.gapi.client.calendar.freebusy.query({
+            "resource": {
+              "timeMin": moment(this.state.min).toISOString(),
+              "timeMax": moment(this.state.max).toISOString(),
+              "timeZone": "America/Los_Angeles",
+              "items": this.state.calendarList
+            }
+          })
+      .then(response => {
+        var calendars = response.result.calendars;
+        Object.keys(calendars).forEach( (value, key) => {
+          var busy = calendars[value].busy; 
+            busy.map( (event) => {
+                this.setState({
+                  eventsList: [...this.state.eventsList, event]
+                }); 
+            }); 
+        });
+        this.saveBusyEvents();
+      },
+    function(err) { console.error("Execute error", err); });
+  }
 
 
    addCalendar() {

@@ -117,9 +117,13 @@ code {
 }
 
 .event .eventName {
-  margin-bottom: 0px;
+  margin-bottom: 8px;
   font-size: 28px;
   font-weight: 500;
+}
+
+.event p {
+  margin-bottom: 4px;
 }
 
 .event .createdAt {
@@ -134,10 +138,11 @@ code {
 .event .event-bottom button {
   display: inline-block;
   float: right;
+  font-size: 20px;
   margin-left: 8px;
-  background-color: #B6EDF3;
+  color: #3F3CEE;
   border: none;
-
+  outline: none;
 }
 
 .logout-button {
