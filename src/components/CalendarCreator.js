@@ -106,7 +106,7 @@ class CalendarCreator extends React.Component {
                   "dateTime": start
                 },
                 "attendees": this.state.emails,
-                "description": description,
+                "description": "Description: " + description + "\n\nItinerary: " + itinerary,
                 "guestsCanSeeOtherGuests": true,
                 "summary": eventName,
                 "location": location
