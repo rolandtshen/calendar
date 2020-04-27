@@ -24,7 +24,6 @@ class CalendarCreator extends React.Component {
         this.id = this.props.match.params.id;
     }
 
-
     componentDidMount() {
         //Fetch firebase data
         this.fetchEvent();
@@ -34,7 +33,6 @@ class CalendarCreator extends React.Component {
         const eventsRef = this.props.firebase.database.ref('events');
         eventsRef.on('value', snap => {
             //console.log(snap.val());
-            
             snap.forEach((childSnapshot) => {
                 var childData = childSnapshot.val();
                 var key = childSnapshot.key;

@@ -59,6 +59,7 @@ class Firebase {
     addEvent = (event) => {
         const eventsRef = this.database.ref('events');
         eventsRef.push(event);
+        window.location = '/'
     }
 
     getCurrentUser = () => {
