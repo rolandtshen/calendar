@@ -13,8 +13,43 @@ h1, h2, h3, h4 {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.login {
+  margin: 100px;
+}
+
+.login-header {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 75px;
+  font-weight: 600;
+}
+
+.login-info {
+  width: 350px;
+  text-align: left;
+}
+
+.login-input {
+  text-align: center;
+}
+
+.login-input-label {
+  padding-top: 10px;
+  padding-left: 280px;
+  text-align: left;
+}
+
+.login-buttons {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.back-to-login {
+  padding-top: 10px;
+  padding-left:280px;
 }
 
 .home {
@@ -45,25 +80,50 @@ code {
   margin-top: 40px;
 }
 
+.btn {
+  padding-left: 50px;
+}
+
+.btn-group-2 {
+
+}
+
+.eventWrapper {
+  color: black;
+}
+
+.eventWrapper:hover {
+  color: black;
+}
+
 .event {
   width: 300px;
   padding: 20px;
-  box-shadow: 0px 13px 13px rgba(0,0,0,.08),0px 3px 8px rgba(0,0,0,.08);
+  box-shadow: 0px 13px 20px rgba(0,0,0,.08),0px 3px 8px rgba(0,0,0,.08);;
   border: 1px solid lightgray;
   border-radius: 10px;
   float: left;
   margin-right: 40px;
   margin-bottom: 40px;
+  transition: 0.2s;
+}
+
+.event:hover {
+  box-shadow: 0px 15px 20px rgba(0,0,0,.1),0px 10px 30px rgba(0,0,0,.1);
 }
 
 .event .event-bottom {
   margin-top: 100px;
 }
 
-.event h2 {
-  margin-bottom: 0px;
+.event .eventName {
+  margin-bottom: 8px;
   font-size: 28px;
   font-weight: 500;
+}
+
+.event p {
+  margin-bottom: 4px;
 }
 
 .event .createdAt {
@@ -78,8 +138,101 @@ code {
 .event .event-bottom button {
   display: inline-block;
   float: right;
+  font-size: 20px;
   margin-left: 8px;
-  background-color: #B6EDF3;
+  color: #3F3CEE;
   border: none;
+  outline: none;
+}
 
+.logout-button {
+  position: absolute;
+  button-color: white;
+  border: none;
+  padding: 0;
+
+  width: 40px;
+  height: 16px;
+  left: 1312px;
+  top: 75px;
+
+  font-family: OpenSans;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: right;
+
+  color: #a3a3a3;
+}
+
+.gCal-logo {
+
+  text-align: left;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 14px;
+
+  position: absolute;
+  height: 56px;
+  left: 88px;
+  top: 60px;
+
+
+}
+
+.line-Horizontal {
+  position: absolute;
+  width: 1440px;
+  height: 0.5px;
+  left: 0px;
+  top: 182px;
+
+  background: #B7B7B7;
+
+}
+
+.line-Vertical {
+  position: absolute;
+  width: 850px;
+  height: 0.5px;
+  left: -100px;
+  bottom: 182px;
+
+
+  background: #B7B7B7;
+  transform: rotate(90deg);
+}
+
+nav {
+  margin-bottom: 40px;
+  background-color: #4845F0;
+}
+
+.emailListWrapper {
+  margin-bottom: 8px;
+}
+
+.emailList {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.deleteEmail {
+  display: inline-block;
+}
+
+.google-Page{
+  text-align: center;
+  padding-top: 10%;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.google-Button {
+  background-color: #B6EDF3;
+}
+
+.add-Cal {
+  padding-top: 145px;
+  padding-left: 160px;
 }
