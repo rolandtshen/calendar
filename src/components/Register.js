@@ -31,19 +31,19 @@ class RegisterForm extends Component {
         e.preventDefault();
         const { username, email, password } = this.state;
         this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, password)
-            .then(authUser => {
-                this.setState({ ...INITIAL_STATE });
-                console.log("registered");
-                console.log(authUser);
-                alert("registered");
-                window.location.href='/login';
+            .doCreateUserWithEmailAndPassword(email, password);
+            // .then(authUser => {
+            //     this.setState({ ...INITIAL_STATE });
+            //     console.log("registered");
+            //     console.log(authUser);
+            //     alert("registered");
+            //     window.location.href='/login';
 
-            })
-            .catch(error => {
-                alert(error);
-                this.setState({ error });
-            });
+            // })
+            // .catch(error => {
+            //     alert(error);
+            //     this.setState({ error });
+            // });
     }
 
     render() {

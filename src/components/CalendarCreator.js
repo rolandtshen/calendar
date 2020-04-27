@@ -16,19 +16,17 @@ class CalendarCreator extends React.Component {
         this.gapi = ApiCalendar.gapi; 
         this.state = {
             eventName: "",
-            startDate: "",
-            endDate: "",
+            startTime: "",
+            endTime: "",
+            eventDate: "",
             location: "",
             itinerary: "",
             description: "", 
             events: [], 
-            startTime: "", 
-            endTime: "", 
             emails : []
         }
         this.id = this.props.match.params.id;
     }
-
 
     componentDidMount() {
         //Fetch firebase data
@@ -39,7 +37,6 @@ class CalendarCreator extends React.Component {
         const eventsRef = this.props.firebase.database.ref('events');
         eventsRef.on('value', snap => {
             //console.log(snap.val());
-            
             snap.forEach((childSnapshot) => {
                 var childData = childSnapshot.val();
                 var key = childSnapshot.key;
@@ -47,13 +44,10 @@ class CalendarCreator extends React.Component {
                     //console.log(childData);
                     this.setState({
                         eventName: childData.eventName,
-                        startDate: childData.startDate,
-                        endDate: childData.endDate,
                         itinerary: childData.itinerary || "",
                         location: childData.location,
                         description: childData.description
                     });
-
                 //add emails 
                 childData.emails.map( (email) => {
                     var e = {
@@ -102,11 +96,6 @@ class CalendarCreator extends React.Component {
         });
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.confirmEvent();
-    }
-
     confirmEvent = () => {
         const { location, description, itinerary, eventName, startDate } = this.state;
         const cid = Cookie.get("cid"); 
@@ -138,7 +127,32 @@ class CalendarCreator extends React.Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
+        }, () => {
+            console.log(this.state.eventDate);
+            console.log(this.state.startTime);
+            console.log(this.state.endTime);
         });
+    }
+
+    parseDate = (s, t) =>{
+        var b = s.split(/\D/);
+        var a = t.split(':');
+        return new Date(b[0], --b[1], b[2], a[0], a[1]);
+    }
+
+    addMeeting = (e) => {
+        e.preventDefault();
+        var startObj = this.parseDate(this.state.eventDate, this.state.startTime);
+        var endObj = this.parseDate(this.state.eventDate, this.state.endTime);
+        const eventRef = this.props.firebase.database.ref('/events/' + this.id).child('meeting');
+
+        var startString = moment(startObj).toISOString();
+        var endString = moment(endObj).toISOString();
+        eventRef.set({
+            start: startString,
+            end: endString
+        });
+        this.confirmEvent(); 
     }
 
     render() {
@@ -149,32 +163,34 @@ class CalendarCreator extends React.Component {
                 <div className="flex mb-4 h-screen">
                     <div className="w-1/4 p-4">
                         <FreeBusy eventId={this.id} firebase={this.props.firebase}/>
-                        <h1 className="font-bold text-2xl mb-4">Available Meeting Times</h1>
+                        <h1 className="font-bold text-2xl mb-4">{this.state.eventName}</h1>
                         <form>
                             <div className="mb-4 w-full">
-                                <label className="block text-gray-700">Event Name</label>
-                                <input name="eventName" value={this.state.eventName} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
-                            </div>
-                            <div className="mb-4 w-full">
                                 <label className="block text-gray-700">Description</label>
-                                <input name="description" value={this.state.description} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. A picnic to start the year and welcome new employees"></input>
+                                <input readOnly name="description" value={this.state.description} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. A picnic to start the year and welcome new employees"></input>
                             </div>
                             <div className="mb-4 w-full">
                                 <label className="block text-gray-700">Location</label>
-                                <input name="location" value={this.state.location} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                                <input readOnly name="location" value={this.state.location} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
                             </div>
                             <div className="mb-4 w-full">
-                                <label className="block text-gray-700">Start Date</label>
-                                <input name="startDate" value={this.state.startDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                                <label className="block text-gray-700">Event Date</label>
+                                <input name="eventDate"  onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="date" ></input>
                             </div>
                             <div className="mb-4 w-full">
-                                <label className="block text-gray-700">End Date</label>
-                                <input name="endDate" value={this.state.endDate} onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="text" placeholder="Eg. Picnic"></input>
+                                <label className="block text-gray-700">Start Time</label>
+                                <input name="startTime" onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="time"></input>
+                            </div>
+                            <div className="mb-4 w-full">
+                                <label className="block text-gray-700">End Time</label>
+                                <input name="endTime" onChange={this.handleChange} className="w-full block border-gray-500 border rounded p-2 bg-gray-200" type="time"></input>
                             </div>
                             <label className="block text-gray-700">Itinerary</label>
                             <textarea className="w-full mb-4 p-2 h-40 bg-gray-200" value={this.state.itinerary} placeholder="Eg. Meeting notes, agenda, rough timeline of event etc." name="itinerary" onChange={this.handleChange}></textarea>
                         </form>
-                        <button type="submit" onClick={this.handleSubmit} className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Confirm Event</button>
+                        <button type="submit" className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Save</button>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <button type="submit" onClick={this.addMeeting} className="text-white font-semibold text-lg p-3 rounded-lg" style={{backgroundColor: "#4845F0"}}>Confirm Event</button>
                     </div>
                     <div className="w-3/4">
                         <Calendar
