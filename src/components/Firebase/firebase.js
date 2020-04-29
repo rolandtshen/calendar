@@ -2,6 +2,7 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 class Firebase {
     state = {
@@ -56,10 +57,21 @@ class Firebase {
         window.location = '/';
     };
 
-    addEvent = (event) => {
+    addEvent = (event, emails) => {
         const eventsRef = this.database.ref('events');
-        eventsRef.push(event);
-        window.location = '/'
+        var newRef = eventsRef.push(event);
+        console.log("added event");
+        console.log(newRef.key);
+        axios.post('https://api.imprint.to/api/email/201project', {
+            emails: emails,
+            link: `https://calendar-omega.now.sh/calendar/${newRef.key}`
+        })
+        .then((response) => {
+            window.location = '/'
+        })
+        .catch((err) => {
+            console.log(err); 
+        });
     }
 
     getCurrentUser = () => {

@@ -115,7 +115,4 @@ export default class FreeBusy extends React.Component {
           </div> 
         );
     }
-
-
-
 }

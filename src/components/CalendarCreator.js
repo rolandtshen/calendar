@@ -122,10 +122,6 @@ class CalendarCreator extends React.Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        }, () => {
-            // console.log(this.state.eventDate);
-            // console.log(this.state.startTime);
-            // console.log(this.state.endTime);
         });
     }
 
