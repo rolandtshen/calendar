@@ -93,19 +93,19 @@ class NewEvent extends Component {
             createdAt: new Date().toString()
         }
         console.log(event);
-        // while(this.webSocket.readyState === 0) {
-        // }
-        // console.log(this.state.startDate + ";" + this.state.endDate + ";" + this.state.emails + ';' + this.state.location + ';' + this.state.eventLength + ';' + this.state.eventName + ';' + this.state.description);
-        // this.webSocket.send(this.state.startDate + ";" + this.state.endDate + ";" + this.state.emails + ';' + this.state.location + ';' + this.state.eventLength + ';' + this.state.eventName + ';' + this.state.description);
-        // this.webSocket.onmessage = (e) => {            
-            // if(e.data !== "success") {                
-                // console.log("error!");
-            // } 
-            // else {
+        while(this.webSocket.readyState === 0) {
+        }
+        console.log(this.state.startDate + ";" + this.state.endDate + ";" + this.state.emails + ';' + this.state.location + ';' + this.state.eventLength + ';' + this.state.eventName + ';' + this.state.description);
+        this.webSocket.send(this.state.startDate + ";" + this.state.endDate + ";" + this.state.emails + ';' + this.state.location + ';' + this.state.eventLength + ';' + this.state.eventName + ';' + this.state.description);
+        this.webSocket.onmessage = (e) => {            
+            if(e.data !== "success") {                
+                console.log("error!");
+            } 
+            else {
                 this.props.firebase.addEvent(event, this.state.emails);
-            // }
-            // console.log(e.data);
-        // }
+            }
+            console.log(e.data);
+        }
     }
 
     render() {
